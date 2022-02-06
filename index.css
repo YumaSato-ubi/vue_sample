@@ -1,0 +1,80 @@
+body {
+    height: 100%;
+    margin: 0;
+    background-color: black;
+  }
+
+header{
+    background-color: black
+}
+
+.title_container{
+    width: 800px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.title_container > h1{
+    width: 600px;
+    color: chartreuse;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 50px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.description{
+    width: 400px;
+    color: chartreuse;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.background{
+    background-color: black;
+    text-align: center;
+}
+
+.start{
+    background-color: black;
+    color: red;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px 200px;
+    font-size: 50px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.start:hover{
+    opacity: 0.8;
+}
+
+.buttons > ul > li {
+    margin-left: auto;
+    margin-right: auto;
+    color: chartreuse;
+    font-size: 50px;
+    font-family: 'Courier New', Courier, monospace;
+    display: inline;
+}
+
+.gauge{
+    height: 12px;
+    width: 100px;
+    transition: all .3s ease;
+}
+
+.gaugeWrapper{
+    border: 1px solid;
+    border-color: crimson;
+    height: 12px;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+

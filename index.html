@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <title>間違い探し</title>
+</head>
+<body>
+    <header>
+        <div class="title_container">
+            <h1>SPOT THE DIFFERENCE</h1>
+            <div class="description">
+                <p>Find out-of-group characters.</p>
+            </div>
+        </div>
+    </header>
+    <div id="app" class="background">
+        <section class="question">
+            <p></p>
+        </section>
+        <button v-if="startFlg!=true" class="start" @click="gameStart">START</button>
+        <div v-if="startFlg">
+            <section class="buttons">
+                <ul v-for="s in strs">
+                    <li v-for="row in s.rows" v-if="row==collect_strs[question_num]" @click="click_true">{{ row }}</li>
+                    <li v-else="row!=collect_strs[question_num]"　@click="click_false">{{ incollect_strs[question_num] }}</li>
+                </ul>
+            </section>
+            <input v-model="typeBox" type="text" class="typeForm">
+            <div class="gaugeWrapper mrl-auto">
+                <div v-bind:style="styleObject" class="gauge">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                startFlg: "",
+                current_question: "",
+                question_num: 0,
+                collect_strs: ["水　", "天　", "網　", "輪　", "陝　"],
+                incollect_strs: ["氷　", "夭　", "綱　", "輸　", "陜　"],
+                strs: [
+                    {rows:[]},
+                    {rows:[]},
+                    {rows:[]},
+                    {rows:[]},
+                    {rows:[]},
+                ],
+                typeBox:"",
+                current_question_counts:0
+            },
+            computed:{
+                styleObject:function(){
+                    width = 20*this.current_question_counts + "%"
+                    if (this.current_question_counts == 5){
+                        color = "#03a9f4"
+                    } else {
+                        color = "orange"
+                    }
+                    return{
+                        'width':width,
+                        'background-color':color
+                    }
+                }
+            },
+            methods:{
+                gameStart:function(){
+                    this.startFlg = true;
+                },
+                click_true:function() {
+                    console.log("不正解");
+                },
+                click_false:function() {
+                    console.log("正解");
+                    this.question_num+=1
+                    this.strs_update()
+                },
+                strs_update:function(){
+                    this.strs= [
+                    {rows:[]},
+                    {rows:[]},
+                    {rows:[]},
+                    {rows:[]},
+                    {rows:[]},
+                    ]
+                    inc_lat = Math.floor(Math.random()*this.collect_strs.length);
+                    inc_lon = Math.floor(Math.random()*this.collect_strs.length);
+                    for(let i=0; i<this.collect_strs.length; i++){
+                        for(let j=0; j<this.collect_strs.length; j++){
+                            if(i==inc_lat && j==inc_lon){
+                                this.strs[i].rows.push(this.incollect_strs[this.question_num])
+                                continue;
+                            }
+                            this.strs[i].rows.push(this.collect_strs[this.question_num])
+                        }
+                    }
+                }
+            },
+            mounted:function(){
+                this.strs_update()
+                console.log(this.strs)
+            },
+            watch:{
+                typeBox:function(e){
+                    if(e==this.current_question){
+                        this.current_question = this.questions[0]
+                        this.typeBox = ""
+                        this.current_question_counts += 1
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
